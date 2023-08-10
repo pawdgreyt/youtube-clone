@@ -47,7 +47,6 @@ let openSideNav = ref(true);
             </div>
         </div>
         <div
-            v-if="$page.url === '/'"
             id="SideNav"
             :class="[!openSideNav ? 'w-[70px]' : 'w-[240px]']"
             class="h-[100%] fixed z-0 bg-black"
