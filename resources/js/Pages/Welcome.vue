@@ -21,8 +21,8 @@ import VideoCard from "@/Components/VideoCard.vue";
                 user="Paolo Climaco"
                 views="23k views"
                 image="https://picsum.photos/id/230/100"
-                videoUrl="/videos/sunrise.mp4"
-                thumbnail="/videos/Thumbnails/sunrise.png"
+                videoUrl="/videos/Auto.mp4"
+                thumbnail="/videos/Thumbnails/Auto.png"
             />
         </div>
     </NavLayout>

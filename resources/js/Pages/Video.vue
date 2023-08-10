@@ -18,7 +18,7 @@ import RecommendedVideos from "@/Components/RecommendedVideos.vue";
     <NavLayout>
         <div class="xl:flex">
             <div class="p-3">
-                <video src="/videos/sunrise.mp4" controls autoplay />
+                <video src="/videos/Auto.mp4" controls autoplay />
                 <div class="text-white text-2xl font-extrabold mt-4">
                     Cool Video
                 </div>
@@ -118,8 +118,8 @@ import RecommendedVideos from "@/Components/RecommendedVideos.vue";
                     <RecommendedVideos
                         :vid="{
                             title: 'Little dog in a jumper',
-                            video: '/videos/sunrise.mp4',
-                            thumbnail: '/videos/Thumbnails/sunrise.png',
+                            video: '/videos/Auto.mp4',
+                            thumbnail: '/videos/Thumbnails/Auto.png',
                             user: 'Paolo Climaco',
                             views: '12k views - 3 days ago',
                         }"
