@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Models\Video;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,7 +18,9 @@ use Inertia\Inertia;
 */
 
 Route::get('/', function () {
-    return Inertia::render('Welcome');
+    return Inertia::render('Welcome', [
+        'videos' => Video::inRandomOrder()->get()
+    ]);
 })->name('home');
 
 Route::get('/add-video', function () {
