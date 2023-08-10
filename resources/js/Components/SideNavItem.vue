@@ -35,7 +35,7 @@ const { openSideNav, iconString } = toRefs(props);
 let icon = null;
 
 if (iconString.value === "Home") icon = Home;
-if (iconString.value === "Subscription") icon = FolderPlayOutline;
+if (iconString.value === "Subscriptions") icon = FolderPlayOutline;
 if (iconString.value === "Library") icon = ImageMultiple;
 if (iconString.value === "Liked") icon = ThumbUpOutline;
 if (iconString.value === "History") icon = History;
