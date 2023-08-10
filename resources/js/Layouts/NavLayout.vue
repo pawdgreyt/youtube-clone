@@ -75,7 +75,7 @@ const isNavOverlay = () => {
                 <img
                     class="rounded-full mx-8"
                     width="35"
-                    src="https://yt3.ggpht.com/e9o-24_frmNSSVvjS47rT8qCHgsHNiedqgXbzmrmpsj6H1ketcufR1B9vLXTZRa30krRksPj=s88-c-k-c0x00ffffff-no-rj-mo"
+                    src="https://avatars.githubusercontent.com/u/52988042?v=4"
                 />
             </div>
         </div>

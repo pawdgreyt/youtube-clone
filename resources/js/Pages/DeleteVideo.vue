@@ -37,7 +37,7 @@ import NavLayout from "@/Layouts/NavLayout.vue";
                         >
                             <video
                                 width="320"
-                                src="/videos/sunrise.mp4"
+                                src="/videos/Auto.mp4"
                                 type="video/mp4"
                                 controls
                             ></video>
