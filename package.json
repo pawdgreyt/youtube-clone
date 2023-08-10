@@ -19,6 +19,7 @@
         "vue": "^3.2.41"
     },
     "dependencies": {
+        "animate.css": "^4.1.1",
         "vue-material-design-icons": "^5.2.0"
     }
 }
