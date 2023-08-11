@@ -42,7 +42,7 @@ class VideosController extends Controller
         $video->title = $request->input('title');
         $video->video = $vidPath . $videoName;
         $video->thumbnail = $thumbPath . $imageName;
-        $video->user = 'John Weeks Dev';
+        $video->user = 'Paolo Climaco';
         $video->views = rand(10,100) . 'k views - ' . rand(1,6) . ' days ago';
 
         $image_file->move(public_path() . $thumbPath, $imageName);
