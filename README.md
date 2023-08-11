@@ -1,6 +1,6 @@
 # YouTube Clone Application
 
-This is a YouTube clone application built using Vue.js, JavaScript, Tailwind CSS, Laravel PHP, and Inertia.js. The application features a fully responsive design that closely resembles the popular YouTube platform. It includes a SideNavOverlay animation for seamless navigation and provides functionalities for uploading and deleting videos.
+This is a YouTube clone application built using Vue.js, JavaScript, Tailwind CSS, Laravel PHP, Breeze, and Inertia.js. The application features a fully responsive design that closely resembles the popular YouTube platform. It includes a SideNavOverlay animation for seamless navigation and provides functionalities for uploading and deleting videos.
 
 ### Features
 
@@ -8,6 +8,7 @@ This is a YouTube clone application built using Vue.js, JavaScript, Tailwind CSS
 2. SideNavOverlay Animation: A sleek and intuitive SideNavOverlay animation enhances the navigation experience, making it easy for users to access different sections of the application.
 3. Video Upload: Users can upload their own videos to the platform, just like on YouTube. The upload process is streamlined and user-friendly.
 4. Video Management: The application allows users to manage their uploaded videos. They can delete videos if needed, giving them control over their content.
+5. Login, Logout and Profile Management
 
 ### Installation
 
