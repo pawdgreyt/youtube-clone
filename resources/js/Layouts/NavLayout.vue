@@ -36,9 +36,9 @@ const isNavOverlay = () => {
     if (usePage().url === "/add-video")
         openSideNavOverlay.value = !openSideNavOverlay.value;
     if (usePage().url === "/delete-video")
-        if (usePage().url === "/profile")
-            openSideNavOverlay.value = !openSideNavOverlay.value;
-    openSideNavOverlay.value = !openSideNavOverlay.value;
+        openSideNavOverlay.value = !openSideNavOverlay.value;
+    if (usePage().url === "/profile")
+        openSideNavOverlay.value = !openSideNavOverlay.value;
     if (width.value < 640) openSideNavOverlay.value = !openSideNavOverlay.value;
     if (usePage().url !== "/" && width.value < 640)
         openSideNavOverlay.value = !openSideNavOverlay.value;
