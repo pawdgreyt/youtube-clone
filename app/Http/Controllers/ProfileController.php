@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
+use App\Models\Video;
 
 class ProfileController extends Controller
 {
@@ -21,6 +22,8 @@ class ProfileController extends Controller
         return Inertia::render('Profile/Edit', [
             'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
             'status' => session('status'),
+            'myVideos' => Video::select('videos.*', 'users.name as user_name')
+            ->join('users', 'videos.user', '=', 'users.id')->where('videos.user', auth()->id())->inRandomOrder()->limit(20)->get()
         ]);
     }
 
