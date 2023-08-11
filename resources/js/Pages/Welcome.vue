@@ -14,11 +14,11 @@ defineProps({
         <div
             class="grid 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-2"
         >
-            <div v-for="video, index in videos" :key="video">
-                <Link :href="route('videos.show', { id:video.id })">
+            <div v-for="(video, index) in videos" :key="video">
+                <Link :href="route('videos.show', { id: video.id })">
                     <VideoCard
                         :title="video.title"
-                        :user="video.user"
+                        :user="video.user_name"
                         :views="video.views"
                         :image="`https://picsum.photos/id/${index}/100`"
                         :videoUrl="video.video"
@@ -26,8 +26,6 @@ defineProps({
                     />
                 </Link>
             </div>
-
-            
         </div>
     </NavLayout>
 </template>

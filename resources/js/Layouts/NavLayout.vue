@@ -4,6 +4,8 @@ import { usePage, Link } from "@inertiajs/vue3";
 import SideNavItem from "../Components/SideNavItem.vue";
 import MenuIcon from "vue-material-design-icons/Menu.vue";
 import MagnifyIcon from "vue-material-design-icons/Magnify.vue";
+import Dropdown from "@/Components/Dropdown.vue";
+import DropdownLink from "@/Components/DropdownLink.vue";
 
 let openSideNav = ref(true);
 let openSideNavOverlay = ref(false);
@@ -76,13 +78,39 @@ const isNavOverlay = () => {
                     <MagnifyIcon class="mx-6" fillColor="#FFFFFF" :size="23" />
                 </div>
             </div>
-            <div>
-                <img
-                    class="rounded-full mx-8"
-                    width="35"
-                    src="https://avatars.githubusercontent.com/u/52988042?v=4"
-                />
-            </div>
+            <Dropdown align="right" width="48">
+                <template #trigger>
+                    <span class="inline-flex rounded-md">
+                        <button
+                            type="button"
+                            class="inline-flex items-center px-3 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-black hover:text-gray-500 focus:outline-none transition ease-in-out duration-150"
+                        >
+                            {{ $page.props.auth.user.name }}
+
+                            <div>
+                                <img
+                                    class="rounded-full ml-2"
+                                    width="35"
+                                    src="https://avatars.githubusercontent.com/u/52988042?v=4"
+                                />
+                            </div>
+                        </button>
+                    </span>
+                </template>
+
+                <template #content>
+                    <DropdownLink :href="route('profile.edit')">
+                        Profile
+                    </DropdownLink>
+                    <DropdownLink
+                        :href="route('logout')"
+                        method="post"
+                        as="button"
+                    >
+                        Log Out
+                    </DropdownLink>
+                </template>
+            </Dropdown>
         </div>
 
         <div v-if="width > 639">
