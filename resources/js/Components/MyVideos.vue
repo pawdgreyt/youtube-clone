@@ -1,5 +1,5 @@
 <template>
-    <div class="relative">
+    <div class="relative mt-2">
         <div
             class="rounded-lg bg-black ms-2"
             :class="[
