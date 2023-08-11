@@ -33,6 +33,7 @@
                         ref="video"
                         :src="videoUrl || ''"
                         typeof="video/mp4"
+                        controls
                     />
                 </div>
             </div>

@@ -23,7 +23,7 @@ class ProfileController extends Controller
             'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
             'status' => session('status'),
             'myVideos' => Video::select('videos.*', 'users.name as user_name')
-            ->join('users', 'videos.user', '=', 'users.id')->where('videos.user', auth()->id())->inRandomOrder()->limit(20)->get()
+            ->join('users', 'videos.user', '=', 'users.id')->where('videos.user', auth()->id())->OrderBy('videos.id', 'DESC')->limit(20)->get()
         ]);
     }
 
