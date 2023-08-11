@@ -1,277 +1,189 @@
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref } from "vue";
+import ApplicationLogo from "@/Components/ApplicationLogo.vue";
 import Dropdown from "@/Components/Dropdown.vue";
 import DropdownLink from "@/Components/DropdownLink.vue";
-import { usePage, Link } from "@inertiajs/vue3";
-import SideNavItem from "../Components/SideNavItem.vue";
-import MenuIcon from "vue-material-design-icons/Menu.vue";
-import MagnifyIcon from "vue-material-design-icons/Magnify.vue";
+import NavLink from "@/Components/NavLink.vue";
+import ResponsiveNavLink from "@/Components/ResponsiveNavLink.vue";
+import { Link } from "@inertiajs/vue3";
 
-let openSideNav = ref(true);
-let openSideNavOverlay = ref(false);
-let sideNavOverlay = ref(null);
-let width = ref(document.documentElement.clientWidth);
-
-onMounted(() => {
-    resize();
-    sideNavOverlay.value.classList.value =
-        sideNavOverlay.value.classList.value += " hidden";
-    window.addEventListener("resize", () => {
-        width.value = document.documentElement.clientWidth;
-        resize();
-    });
-});
-
-const resize = () => {
-    if (width.value < 1280 && openSideNav.value) {
-        openSideNav.value = false;
-    }
-    if (width.value > 1279 && !openSideNav.value) {
-        openSideNav.value = true;
-    }
-};
-
-const isNavOverlay = () => {
-    if (usePage().url === "/") openSideNav.value = !openSideNav.value;
-    if (usePage().url === "/add-video")
-        openSideNavOverlay.value = !openSideNavOverlay.value;
-    if (usePage().url === "/delete-video")
-        openSideNavOverlay.value = !openSideNavOverlay.value;
-    if (usePage().url === "/profile")
-        openSideNavOverlay.value = !openSideNavOverlay.value;
-    if (width.value < 640) openSideNavOverlay.value = !openSideNavOverlay.value;
-    if (usePage().url !== "/" && width.value < 640)
-        openSideNavOverlay.value = !openSideNavOverlay.value;
-    if (usePage().props.video)
-        openSideNavOverlay.value = !openSideNavOverlay.value;
-};
+const showingNavigationDropdown = ref(false);
 </script>
 
 <template>
-    <div class="relative">
-        <div
-            id="TopNav"
-            class="w-[100%] h-[60px] fixed bg-black z-20 flex items-center justify-between"
-        >
-            <div class="flex items-center">
-                <button
-                    @click="isNavOverlay()"
-                    class="p-2 ml-3 rounded-full hover:bg-gray-800 inline-block cursor-pointer"
-                >
-                    <MenuIcon fillColor="#FFFFFF" :size="26" />
-                </button>
-                <div class="mx-2"></div>
-                <Link
-                    :href="route('home')"
-                    class="flex items-center justify-center mr-10 cursor-pointer"
-                >
-                    <img class="" width="32" src="/images/YT-logo.png" alt="" />
-                    <img width="62" src="/images/YT-logo-text.png" alt="" />
-                </Link>
-            </div>
-
-            <div class="w-[600px] md:block hidden">
-                <div class="rounded-full flex items-center bg-[#222222]">
-                    <input
-                        type="text"
-                        class="form-control block w-full px-5 py-1.5 text-base font-normal text-gray-200 bg-black placeholder-gray-400 bg-clip-padding border border-solid border-l-gray-700 border-y-gray-700 rounded-l-full transition ease-in-out m-0 border-transparent focus:ring-0"
-                        placeholder="Search"
-                    />
-                    <MagnifyIcon class="mx-6" fillColor="#FFFFFF" :size="23" />
-                </div>
-            </div>
-            <Dropdown align="right" width="48">
-                <template #trigger>
-                    <span class="inline-flex rounded-md">
-                        <button
-                            type="button"
-                            class="inline-flex items-center px-3 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-black hover:text-gray-500 focus:outline-none transition ease-in-out duration-150"
-                        >
-                            {{ $page.props.auth.user.name }}
-
-                            <div>
-                                <img
-                                    class="rounded-full ml-2"
-                                    width="35"
-                                    src="https://avatars.githubusercontent.com/u/52988042?v=4"
-                                />
+    <div>
+        <div class="min-h-screen bg-gray-100">
+            <nav class="bg-white border-b border-gray-100">
+                <!-- Primary Navigation Menu -->
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="flex justify-between h-16">
+                        <div class="flex">
+                            <!-- Logo -->
+                            <div class="shrink-0 flex items-center">
+                                <Link :href="route('dashboard')">
+                                    <ApplicationLogo
+                                        class="block h-9 w-auto fill-current text-gray-800"
+                                    />
+                                </Link>
                             </div>
-                        </button>
-                    </span>
-                </template>
 
-                <template #content>
-                    <DropdownLink :href="route('profile.edit')">
-                        Profile
-                    </DropdownLink>
-                    <DropdownLink
-                        :href="route('logout')"
-                        method="post"
-                        as="button"
-                    >
-                        Log Out
-                    </DropdownLink>
-                </template>
-            </Dropdown>
-        </div>
-
-        <div v-if="width > 639">
-            <div
-                v-if="$page.url === '/'"
-                id="SideNav"
-                :class="[!openSideNav ? 'w-[70px]' : 'w-[240px]']"
-                class="h-[100%] fixed z-0 bg-black"
-            >
-                <ul
-                    :class="[!openSideNav ? 'p-2' : 'px-5 pb-2 pt-[7px]']"
-                    class="mt-[60px] w-full"
-                >
-                    <Link :href="route('home')">
-                        <SideNavItem
-                            :openSideNav="openSideNav"
-                            iconString="Home"
-                        />
-                    </Link>
-                    <Link :href="route('addVideo')">
-                        <SideNavItem
-                            :openSideNav="openSideNav"
-                            iconString="Add Video"
-                        />
-                    </Link>
-                    <Link :href="route('deleteVideo')">
-                        <SideNavItem
-                            :openSideNav="openSideNav"
-                            iconString="Delete Video"
-                        />
-                    </Link>
-                    <div class="border-b border-b-gray-700 my-2.5"></div>
-                    <SideNavItem
-                        :openSideNav="openSideNav"
-                        iconString="Subscriptions"
-                    />
-                    <SideNavItem
-                        :openSideNav="openSideNav"
-                        iconString="Library"
-                    />
-                    <SideNavItem
-                        :openSideNav="openSideNav"
-                        iconString="Liked"
-                    />
-                    <SideNavItem
-                        :openSideNav="openSideNav"
-                        iconString="History"
-                    />
-                    <SideNavItem
-                        :openSideNav="openSideNav"
-                        iconString="Watch Later"
-                    />
-                    <div v-if="openSideNav">
-                        <div class="border-b border-b-gray-700 my-2.5"></div>
-                        <div class="text-gray-400 text-[14px] text-extrabold">
-                            About Press Copyright
-                            <div>Contact us</div>
-                            Creator Advertise Developers
+                            <!-- Navigation Links -->
+                            <div
+                                class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex"
+                            >
+                                <NavLink
+                                    :href="route('dashboard')"
+                                    :active="route().current('dashboard')"
+                                >
+                                    Dashboard
+                                </NavLink>
+                            </div>
                         </div>
-                        <div class="border-b border-b-gray-700 my-2.5"></div>
-                        <div class="text-gray-400 text-[14px] text-extrabold">
-                            Terms Privacy Policy & Safety
-                            <div>How YouTube works</div>
-                            <span>Test new features</span>
-                        </div>
-                    </div>
-                </ul>
-            </div>
-        </div>
 
-        <!-- OVERLAY NAV SECTION -->
-        <div
-            @click="openSideNavOverlay = false"
-            class="bg-black bg-opacity-70 fixed z-50 w-full h-screen"
-            :class="
-                openSideNavOverlay
-                    ? 'animate__animated animate__fadeIn animate__faster'
-                    : 'hidden z-[-1]'
-            "
-        />
-        <div
-            id="SideNavOverlay"
-            ref="sideNavOverlay"
-            class="h-[100%] fixed z-50 bg-black mt-[9px] w-[240px]"
-            :class="
-                openSideNavOverlay
-                    ? 'animate__animated animate__slideInLeft animate__faster'
-                    : 'animate__animated animate__slideOutLeft animate__faster'
-            "
-        >
-            <div class="flex items-center">
-                <button
-                    @click="isNavOverlay()"
-                    class="p-2 ml-3 rounded-full hover:bg-gray-800 cursor-pointer"
-                >
-                    <MenuIcon fillColor="#FFFFFF" :size="26" />
-                </button>
-                <div class="mx-2"></div>
-                <Link
-                    :href="route('home')"
-                    class="flex items-center justify-center cursor-pointer"
-                >
-                    <img class="" width="32" src="/images/YT-logo.png" alt="" />
-                    <img width="62" src="/images/YT-logo-text.png" alt="" />
-                </Link>
-            </div>
-            <ul class="w-full px-5 py-2 p-2 mt-2">
-                <Link :href="route('home')">
-                    <SideNavItem :openSideNav="true" iconString="Home" />
-                </Link>
-                <Link :href="route('addVideo')">
-                    <SideNavItem :openSideNav="true" iconString="Add Video" />
-                </Link>
-                <Link :href="route('deleteVideo')">
-                    <SideNavItem
-                        :openSideNav="true"
-                        iconString="Delete Video"
-                    />
-                </Link>
-                <div class="border-b border-b-gray-700 my-2.5"></div>
-                <SideNavItem :openSideNav="true" iconString="Subscriptions" />
-                <SideNavItem :openSideNav="true" iconString="Library" />
-                <SideNavItem :openSideNav="true" iconString="Liked" />
-                <SideNavItem :openSideNav="true" iconString="History" />
-                <SideNavItem :openSideNav="true" iconString="Watch Later" />
-                <div v-if="true">
-                    <div class="border-b border-b-gray-700 my-2.5"></div>
-                    <div class="text-gray-400 text-[14px] text-extrabold">
-                        About Press Copyright
-                        <div>Contact us</div>
-                        Creator Advertise Developers
-                    </div>
-                    <div class="border-b border-b-gray-700 my-2.5"></div>
-                    <div class="text-gray-400 text-[14px] text-extrabold">
-                        Terms Privacy Policy & Safety
-                        <div>How YouTube works</div>
-                        <span>Test new features</span>
+                        <div class="hidden sm:flex sm:items-center sm:ml-6">
+                            <!-- Settings Dropdown -->
+                            <div class="ml-3 relative">
+                                <Dropdown align="right" width="48">
+                                    <template #trigger>
+                                        <span class="inline-flex rounded-md">
+                                            <button
+                                                type="button"
+                                                class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
+                                            >
+                                                {{ $page.props.auth.user.name }}
+
+                                                <svg
+                                                    class="ml-2 -mr-0.5 h-4 w-4"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    viewBox="0 0 20 20"
+                                                    fill="currentColor"
+                                                >
+                                                    <path
+                                                        fill-rule="evenodd"
+                                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                                        clip-rule="evenodd"
+                                                    />
+                                                </svg>
+                                            </button>
+                                        </span>
+                                    </template>
+
+                                    <template #content>
+                                        <DropdownLink
+                                            :href="route('profile.edit')"
+                                        >
+                                            Profile
+                                        </DropdownLink>
+                                        <DropdownLink
+                                            :href="route('logout')"
+                                            method="post"
+                                            as="button"
+                                        >
+                                            Log Out
+                                        </DropdownLink>
+                                    </template>
+                                </Dropdown>
+                            </div>
+                        </div>
+
+                        <!-- Hamburger -->
+                        <div class="-mr-2 flex items-center sm:hidden">
+                            <button
+                                @click="
+                                    showingNavigationDropdown =
+                                        !showingNavigationDropdown
+                                "
+                                class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out"
+                            >
+                                <svg
+                                    class="h-6 w-6"
+                                    stroke="currentColor"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path
+                                        :class="{
+                                            hidden: showingNavigationDropdown,
+                                            'inline-flex':
+                                                !showingNavigationDropdown,
+                                        }"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="M4 6h16M4 12h16M4 18h16"
+                                    />
+                                    <path
+                                        :class="{
+                                            hidden: !showingNavigationDropdown,
+                                            'inline-flex':
+                                                showingNavigationDropdown,
+                                        }"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="M6 18L18 6M6 6l12 12"
+                                    />
+                                </svg>
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </ul>
-        </div>
-        <!-- OVERLAY NAV SECTION END -->
 
-        <div
-            class="w-[100%] h-[calc(100vh-60px)] absolute right-0 top-[60px]"
-            :class="{
-                'w-[calc(100%-70px)]': !openSideNav,
-                'w-[calc(100%-240px)]': openSideNav,
-                'w-[100vw] xl:w-[calc(100%-80px)]': $page.url !== '/',
-                'w-[100vw]': width < 639,
-            }"
-        >
-            <slot />
+                <!-- Responsive Navigation Menu -->
+                <div
+                    :class="{
+                        block: showingNavigationDropdown,
+                        hidden: !showingNavigationDropdown,
+                    }"
+                    class="sm:hidden"
+                >
+                    <div class="pt-2 pb-3 space-y-1">
+                        <ResponsiveNavLink
+                            :href="route('dashboard')"
+                            :active="route().current('dashboard')"
+                        >
+                            Dashboard
+                        </ResponsiveNavLink>
+                    </div>
+
+                    <!-- Responsive Settings Options -->
+                    <div class="pt-4 pb-1 border-t border-gray-200">
+                        <div class="px-4">
+                            <div class="font-medium text-base text-gray-800">
+                                {{ $page.props.auth.user.name }}
+                            </div>
+                            <div class="font-medium text-sm text-gray-500">
+                                {{ $page.props.auth.user.email }}
+                            </div>
+                        </div>
+
+                        <div class="mt-3 space-y-1">
+                            <ResponsiveNavLink :href="route('profile.edit')">
+                                Profile
+                            </ResponsiveNavLink>
+                            <ResponsiveNavLink
+                                :href="route('logout')"
+                                method="post"
+                                as="button"
+                            >
+                                Log Out
+                            </ResponsiveNavLink>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Page Heading -->
+            <header class="bg-white shadow" v-if="$slots.header">
+                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                    <slot name="header" />
+                </div>
+            </header>
+
+            <!-- Page Content -->
+            <main>
+                <slot />
+            </main>
         </div>
     </div>
 </template>
-
-<style>
-body {
-    background-color: black;
-}
-</style>
