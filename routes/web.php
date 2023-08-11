@@ -26,7 +26,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/', function () { return Inertia::render('Welcome', [ 'videos' => Video::select('videos.*', 'users.name as user_name', 'users.email as user_email')
         ->join('users', 'videos.user', '=', 'users.id')->inRandomOrder()->get() ]); })->name('home');
     Route::get('/add-video', function () {return Inertia::render('AddVideo'); })->name('addVideo');
-    Route::get('/delete-video', function () { return Inertia::render('DeleteVideo', [ 'videos' => Video::all() ]); })->name('deleteVideo');
+    Route::get('/delete-video', function () { return Inertia::render('DeleteVideo', [ 'videos' => Video::where('user', auth()->id())->get() ]); })->name('deleteVideo');
 
     Route::get('/videos/{id}', [\App\Http\Controllers\VideosController::class, 'show'])->name('videos.show');
     Route::post('/addvideo', [\App\Http\Controllers\VideosController::class, 'store'])->name('videos.store');
