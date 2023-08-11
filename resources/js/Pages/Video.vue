@@ -34,7 +34,7 @@ defineProps({
                         <div
                             class="text-white tex-lg font-extrabold flex items-center"
                         >
-                            {{ video.user }}
+                            {{ video.user_name }}
                             <CheckCircle fillColor="#888888" :size="17" />
                         </div>
                         <div class="text-sm text-gray-400 font-extrabold">
@@ -45,10 +45,11 @@ defineProps({
 
                 <div class="w-[500px] p-3 block sm:hidden">
                     <div v-for="vid in recommendedVideos" :key="vid">
-                        <Link class="flex mb-3" :href="route('videos.show', { id: vid.id })">
-                            <RecommendedVideos
-                                :vid="vid"
-                            />
+                        <Link
+                            class="flex mb-3"
+                            :href="route('videos.show', { id: vid.id })"
+                        >
+                            <RecommendedVideos :vid="vid" />
                         </Link>
                     </div>
                 </div>
@@ -81,7 +82,8 @@ defineProps({
                             <img
                                 class="rounded-full mt-2 w-12 h-12"
                                 :src="
-                                    'https://picsum.photos/1920/1080?random' || ''
+                                    'https://picsum.photos/1920/1080?random' ||
+                                    ''
                                 "
                             />
                             <div class="pl-6 mt-1">
@@ -89,9 +91,13 @@ defineProps({
                                     class="text-white font-extrabold flex items-baseline"
                                 >
                                     <div>{{ comment.user }}</div>
-                                    <div class="text-gray-400 pl-3">{{ comment.time }}</div>
+                                    <div class="text-gray-400 pl-3">
+                                        {{ comment.time }}
+                                    </div>
                                 </div>
-                                <div class="text-gray-200 text-sm font-semibold">
+                                <div
+                                    class="text-gray-200 text-sm font-semibold"
+                                >
                                     {{ comment.text }}
                                 </div>
 
@@ -120,10 +126,11 @@ defineProps({
 
             <div class="w-[500px] p-3 sm:block hidden">
                 <div v-for="vid in recommendedVideos" :key="vid">
-                    <Link class="flex mb-3" :href="route('videos.show', { id: vid.id })">
-                        <RecommendedVideos
-                            :vid="vid"
-                        />
+                    <Link
+                        class="flex mb-3"
+                        :href="route('videos.show', { id: vid.id })"
+                    >
+                        <RecommendedVideos :vid="vid" />
                     </Link>
                 </div>
             </div>

@@ -53,7 +53,7 @@ watch(
             <div
                 class="text-[12px] text-gray-300 font-extrabold flex gap-1 items-center cursor-pointer"
             >
-                {{ vid.user }}
+                {{ vid.user_name }}
                 <CheckCircle fillColor="#888888" :size="17" />
             </div>
             <div class="text-sm mb-1 text-gray-300 cursor-pointer">

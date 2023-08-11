@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Comment;
 use App\Models\Video;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -42,7 +43,7 @@ class VideosController extends Controller
         $video->title = $request->input('title');
         $video->video = $vidPath . $videoName;
         $video->thumbnail = $thumbPath . $imageName;
-        $video->user = 'Paolo Climaco';
+        $video->user = auth()->id();
         $video->views = rand(10,100) . 'k views - ' . rand(1,6) . ' days ago';
 
         $image_file->move(public_path() . $thumbPath, $imageName);
@@ -62,9 +63,12 @@ class VideosController extends Controller
     public function show($id)
     {
         return Inertia::render('Video', [
-            'video' => Video::find($id),
+            'video' => $video = Video::select('videos.*', 'users.name as user_name', 'users.email as user_email')
+                ->join('users', 'videos.user', '=', 'users.id')
+                ->find($id),
             'comments' => Comment::all(),
-            'recommendedVideos' => Video::inRandomOrder()->limit(20)->get(),
+            'recommendedVideos' => Video::select('videos.*', 'users.name as user_name', 'users.email as user_email')
+            ->join('users', 'videos.user', '=', 'users.id')->inRandomOrder()->limit(20)->get(),
         ]);
     }
 
